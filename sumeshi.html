@@ -1,0 +1,41 @@
+<head>
+  <title>sumeshi</title>
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="http://saeedalipoor.github.io/icono/icono.min.css">
+  <link rel="stylesheet" href="sumeshi.css">
+    
+</head>
+
+<body>
+  {{> main}}
+</body>
+
+<template name="main">
+  <div id="vue">
+    <div class="posts__list">
+      <div v-repeat="post : posts" class="posts__list__line">
+        [[post.title]]
+      </div>
+    </div>
+    <div class="posts__preview">
+      <div class="pure-form posts__preview__form">
+          <fieldset class="pure-group">
+            <textarea class="pure-input-1" v-model="text" rows="5" placeholder="メモ（一行目がタイトル）"></textarea>
+            <button v-on="click: addPost" class="pure-button pure-input-1 pure-button-primary" v-attr="disabled: text.length === 0" >メモを追加</button>
+          </fieldset>
+          <div>
+            <button v-on="click: addPost" class="pure-button pure-input-1-3 pure-button-primary button-success">チャットを追加</button>
+            <button v-on="click: addPost" class="pure-button pure-input-1-3 pure-button-primary button-success">ガントを追加</button>
+            <button v-on="click: addPost" class="pure-button pure-input-1-3 pure-button-primary button-success">カンバンを追加</button>
+          </div>
+      </div>
+      
+      <div class="posts__preview__post" v-repeat="post: previewList">
+        <div class="posts__preview__post__title">[[post.title]]</div>
+        <div class="posts__preview__post__text">[[[post.text | marked]]]</div>
+          <i class="icono-cross" v-on="click: removePost(post._id)"></i>
+      </div>
+
+    </div>
+  </div>
+</template>
